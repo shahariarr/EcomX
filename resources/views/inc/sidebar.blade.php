@@ -43,6 +43,23 @@
                 </li>
             @endcan
 
+            @can(['brands.index'])
+                <li class="menu-header">Brand Management</li>
+                <li class="dropdown {{ Route::is('brands.*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cubes"></i>
+                        <span>Brands</span></a>
+                    <ul class="dropdown-menu">
+
+                        @can('brands.index')
+                            <li class="{{ Route::is('brands.index') ? 'active' : '' }}"><a class="nav-link"
+                                    href="{{ route('brands.index') }}">Brand List</a></li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
+
+
+
             @can(['index-product'])
                 <li class="menu-header">Product Management</li>
                 <li class="dropdown {{ Route::is('products.*') ? 'active' : '' }}">
