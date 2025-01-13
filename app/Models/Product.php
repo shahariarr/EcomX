@@ -8,4 +8,47 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'product_name',
+        'sku',
+        'upc_ean_barcode',
+        'category_id',
+        'brand_id',
+        'model_number',
+        'shipping_cost',
+        'color',
+        'slug',
+        'status',
+        'price',
+        'discount_price',
+        'stock_quantity',
+        'stock_status',
+        'reorder_level',
+        'front_view_image',
+        'back_view_image',
+        'side_view_image',
+        'video',
+        'short_description',
+
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+
+
 }
