@@ -19,7 +19,7 @@
                     <div class="card-header">
                         <h4>Edit User</h4>
                         <div class="card-header-form">
-                                <a href="{{ route('users.index') }}" class="btn btn-primary my-2"><i class="bi bi-plus-circle"></i>Back</a>
+                                <a href="{{ route('products.index') }}" class="btn btn-primary my-2"><i class="bi bi-plus-circle"></i>Back</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -106,6 +106,6 @@
 
 @endsection
 @push('scripts')
-  
+
 
 @endpush

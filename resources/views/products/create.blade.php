@@ -1,0 +1,215 @@
+@extends('layouts.back')
+@section('title', 'Create Product')
+
+@section('content')
+    <section class="section">
+        <div class="section-header">
+            <h1>Create Product</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active">
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                </div>
+                <div class="breadcrumb-item">
+                    <a href="{{ route('products.index') }}">Products</a>
+                </div>
+                <div class="breadcrumb-item">Create Product</div>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Create Product</h4>
+                            <div class="card-header-form">
+                                <a href="{{ route('products.index') }}" class="btn btn-primary my-2"><i
+                                        class="bi bi-plus-circle"></i>Back</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="product_name">Product Name</label>
+                                    <input type="text" class="form-control" name="product_name" id="product_name"
+                                        placeholder="Enter Product Name" value="{{ old('product_name') }}" />
+                                    @error('product_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="sku">SKU</label>
+                                    <input type="text" class="form-control" name="sku" id="sku"
+                                        placeholder="Enter SKU" value="{{ old('sku') }}" />
+                                    @error('sku')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="category_id">Category</label>
+                                    <select class="form-control" name="category_id" id="category_id">
+                                        <option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="brand_id">Brand</label>
+                                    <select class="form-control" name="brand_id" id="brand_id">
+                                        <option value="">Select Brand</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}"
+                                                {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
+                                                {{ $brand->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="model_number">Model Number</label>
+                                    <input type="text" class="form-control" name="model_number" id="model_number"
+                                        placeholder="Enter Model Number" value="{{ old('model_number') }}" />
+                                    @error('model_number')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="number" class="form-control" name="price" id="price" step="any"
+                                        placeholder="Enter Price" value="{{ old('price') }}" />
+                                    @error('price')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="discount_price">Discount Price</label>
+                                    <input type="number" class="form-control" name="discount_price" id="discount_price"
+                                        step="any" placeholder="Optional Discount Price"
+                                        value="{{ old('discount_price') }}" />
+                                    @error('discount_price')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="stock_quantity">Stock Quantity</label>
+                                    <input type="number" class="form-control" name="stock_quantity" id="stock_quantity"
+                                        placeholder="Enter Stock Quantity" value="{{ old('stock_quantity') }}" />
+                                    @error('stock_quantity')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="stock_status">Stock Status</label>
+                                    <select class="form-control" name="stock_status" id="stock_status">
+                                        <option value="In Stock" {{ old('stock_status') == 'In Stock' ? 'selected' : '' }}>
+                                            In Stock</option>
+                                        <option value="Out of Stock"
+                                            {{ old('stock_status') == 'Out of Stock' ? 'selected' : '' }}>Out of Stock
+                                        </option>
+                                        <option value="Pre-order"
+                                            {{ old('stock_status') == 'Pre-order' ? 'selected' : '' }}>Pre-order</option>
+                                    </select>
+                                    @error('stock_status')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="reorder_level">Reorder Level</label>
+                                    <input type="number" class="form-control" name="reorder_level" id="reorder_level"
+                                        placeholder="Enter Reorder Level" value="{{ old('reorder_level') }}" />
+                                    @error('reorder_level')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="short_description">Short Description</label>
+                                    <textarea class="form-control" name="short_description" id="short_description" rows="3"
+                                        placeholder="Enter short description">{{ old('short_description') }}</textarea>
+                                    @error('short_description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="video">Video URL</label>
+                                    <input type="text" class="form-control" name="video" id="video"
+                                        placeholder="Optional video link" value="{{ old('video') }}" />
+                                    @error('video')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                @if (auth()->user()->hasRole(['Admin', 'Super Admin']))
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="form-control" name="status" id="status">
+                                            <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>
+                                                Active</option>
+                                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>
+                                                Inactive</option>
+                                        </select>
+                                        @error('status')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                @endif
+                                <div class="form-group">
+                                    <label for="front_view_image">Front Image</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="front_view_image"
+                                            id="front_view_image" accept="image/*">
+                                        <label class="custom-file-label" for="front_view_image">Choose file</label>
+                                    </div>
+                                    <div class="image-preview mt-2" id="frontPreviewContainer" style="display: none;">
+                                        <img src="" alt="" id="frontPreview" width="100%">
+                                    </div>
+                                    @error('front_view_image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="back_view_image">Back Image</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="back_view_image"
+                                            id="back_view_image" accept="image/*">
+                                        <label class="custom-file-label" for="back_view_image">Choose file</label>
+                                    </div>
+                                    <div class="image-preview mt-2" id="backPreviewContainer" style="display: none;">
+                                        <img src="" alt="" id="backPreview" width="100%">
+                                    </div>
+                                    @error('back_view_image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="side_view_image">Side Image</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="side_view_image"
+                                            id="side_view_image" accept="image/*">
+                                        <label class="custom-file-label" for="side_view_image">Choose file</label>
+                                    </div>
+                                    <div class="image-preview mt-2" id="sidePreviewContainer" style="display: none;">
+                                        <img src="" alt="" id="sidePreview" width="100%">
+                                    </div>
+                                    @error('side_view_image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create Product</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection

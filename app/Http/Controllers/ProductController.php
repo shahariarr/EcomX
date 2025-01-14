@@ -97,7 +97,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'product_name'      => 'required|string|max:255',
@@ -114,14 +114,11 @@ class ProductController extends Controller
             'front_view_image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'back_view_image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'side_view_image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'video'             => 'nullable|string'
+            'video'             => 'nullable|string'
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'errors' => $validator->errors()
-            ], 422);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $status = auth()->user()->hasRole(['Admin', 'Super Admin']) ? 'active' : 'inactive';
@@ -165,40 +162,36 @@ class ProductController extends Controller
                 'back_view_image'   => $imagePathBack,
                 'side_view_image'   => $imagePathSide,
                 'video'             => $request->video,
-                'user_id' => auth()->user()->id,
+                'user_id'           => auth()->user()->id,
             ]);
 
-            return response()->json(['status' => true, 'message' => 'Product created successfully']);
+            return redirect()->route('products.index')->with('success', 'Product created successfully');
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => $e->getMessage()]);
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id): JsonResponse
+    public function edit($id): View
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $categories = Category::all();
         $brands = Brand::all();
 
-        if ($product) {
-            return response()->json([
-                'status' => true,
-                'data' => $product,
-                'categories' => $categories,
-                'brands' => $brands
-            ]);
-        }
-
-        return response()->json(['status' => false, 'message' => 'Product not found']);
+        return view('products.edit', [
+            'product' => $product,
+            'categories' => $categories,
+            'brands' => $brands
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $rules = [
             'product_name'      => 'required|string|max:255',
@@ -215,7 +208,7 @@ class ProductController extends Controller
             'front_view_image'  => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'back_view_image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'side_view_image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'video'             => 'nullable|string'
+            'video'             => 'nullable|string'
         ];
 
         if (auth()->user()->hasRole(['Admin', 'Super Admin'])) {
@@ -225,10 +218,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'errors' => $validator->errors()
-            ], 422);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $path = 'storage/product';
@@ -282,7 +272,7 @@ class ProductController extends Controller
                 'side_view_image'   => $imagePathSide,
                 'video'             => $request->video,
                 'slug'              => slug($request->product_name),
-                'user_id' => auth()->user()->id,
+                'user_id'           => auth()->user()->id,
             ];
 
             if (auth()->user()->hasRole(['Admin', 'Super Admin'])) {
@@ -291,11 +281,12 @@ class ProductController extends Controller
 
             $product->update($updateData);
 
-            return response()->json(['status' => true, 'message' => 'Product updated successfully']);
+            return redirect()->route('products.index')->with('success', 'Product updated successfully');
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => $e->getMessage()]);
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

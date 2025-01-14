@@ -213,6 +213,8 @@
   </div>
   @stack('modals')
   <!-- General JS Scripts -->
+  <script src="{{ asset('js/product.js') }}" defer></script>
+
   <script src="{{ asset('backend/assets/modules/jquery.min.js')}}"></script>
   <script src="{{ asset('backend/assets/modules/popper.js')}}"></script>
   <script src="{{ asset('backend/assets/modules/tooltip.js')}}"></script>
