@@ -30,6 +30,7 @@ class Product extends Model
         'side_view_image',
         'video',
         'short_description',
+        'user_id',
 
     ];
 
