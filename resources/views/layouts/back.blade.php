@@ -12,7 +12,7 @@
 
    <!-- CSS Libraries -->
    <link rel="stylesheet" href="{{ asset('assets/modules/jqvmap/dist/jqvmap.min.css')}}">
-   <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.cs')}}s">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
    <link rel="stylesheet" href="{{ asset('assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css')}}">
    <link rel="stylesheet" href="{{ asset('assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/izitoast/css/iziToast.css') }}">
@@ -228,7 +228,7 @@
   <script src="{{ asset('backend/assets/modules/jquery.sparkline.min.js')}}"></script>
   <script src="{{ asset('backend/assets/modules/chart.min.js')}}"></script>
   <script src="{{ asset('backend/assets/modules/owlcarousel2/dist/owl.carousel.min.js')}}"></script>
-  <script src="{{ asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
   <script src="{{ asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
   <script src="{{ asset('backend/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
 

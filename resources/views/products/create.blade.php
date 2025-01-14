@@ -46,7 +46,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="sku">SKU</label>
+                                                    <label for="sku">SKU <span
+                                                        class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="sku" id="sku"
                                                         placeholder="Enter SKU" value="{{ old('sku') }}" />
                                                     @error('sku')
@@ -55,7 +56,8 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="model_number">Model Number</label>
+                                                    <label for="model_number">Model Number <span
+                                                        class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="model_number"
                                                         id="model_number" placeholder="Enter Model Number"
                                                         value="{{ old('model_number') }}" />
@@ -68,7 +70,8 @@
 
 
                                                 <div class="form-group">
-                                                    <label for="price">Price</label>
+                                                    <label for="price">Price <span
+                                                        class="text-danger">*</span></label>
                                                     <input type="number" class="form-control" name="price" id="price"
                                                         step="any" placeholder="Enter Price"
                                                         value="{{ old('price') }}" />
@@ -77,7 +80,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="discount_price">Discount Price</label>
+                                                    <label for="discount_price">Discount Price <span
+                                                        class="text-danger">*</span></label>
                                                     <input type="number" class="form-control" name="discount_price"
                                                         id="discount_price" step="any"
                                                         placeholder="Optional Discount Price"
@@ -87,7 +91,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="stock_quantity">Stock Quantity</label>
+                                                    <label for="stock_quantity">Stock Quantity <span
+                                                        class="text-danger">*</span></label>
                                                     <input type="number" class="form-control" name="stock_quantity"
                                                         id="stock_quantity" placeholder="Enter Stock Quantity"
                                                         value="{{ old('stock_quantity') }}" />
@@ -96,7 +101,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="stock_status">Stock Status</label>
+                                                    <label for="stock_status">Stock Status <span
+                                                        class="text-danger">*</span></label>
                                                     <select class="form-control" name="stock_status" id="stock_status">
                                                         <option value="In Stock"
                                                             {{ old('stock_status') == 'In Stock' ? 'selected' : '' }}>
@@ -114,7 +120,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="reorder_level">Reorder Level</label>
+                                                    <label for="reorder_level">Reorder Level <span
+                                                        class="text-danger">*</span></label>
                                                     <input type="number" class="form-control" name="reorder_level"
                                                         id="reorder_level" placeholder="Enter Reorder Level"
                                                         value="{{ old('reorder_level') }}" />
@@ -123,13 +130,14 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="short_description">Short Description</label>
+                                                    <label for="short_description">Description <span class="text-danger">*</span></label>
                                                     <textarea class="form-control" name="short_description" id="short_description" rows="3"
                                                         placeholder="Enter short description">{{ old('short_description') }}</textarea>
                                                     @error('short_description')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +148,8 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="category_id">Category</label>
+                                                    <label for="category_id">Category <span
+                                                        class="text-danger">*</span></label>
                                                     <select class="form-control" name="category_id" id="category_id">
                                                         <option value="">Select Category</option>
                                                         @foreach ($categories as $category)
@@ -155,7 +164,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="brand_id">Brand</label>
+                                                    <label for="brand_id">Brand <span
+                                                        class="text-danger">*</span></label>
                                                     <select class="form-control" name="brand_id" id="brand_id">
                                                         <option value="">Select Brand</option>
                                                         @foreach ($brands as $brand)
@@ -252,7 +262,12 @@
                                 </div>
                                 <div class="form-group text-right">
 
-                                    <button type="button" class="btn btn-secondary mr-1">Cancel</button>
+
+                                        <a href="{{ route('products.index') }}" class="btn btn-secondary mr-1"><i
+                                                class="bi bi-plus-circle"></i>Back</a>
+
+
+                                    {{-- <button type="button" class="btn btn-secondary mr-1">Cancel</button> --}}
 
                                     <button type="submit" class="btn btn-primary">Create Product</button>
                                 </div>
@@ -265,3 +280,14 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#short_description').summernote({
+                dialogsInBody: true,
+                minHeight: 150,
+            });
+        });
+    </script>
+@endpush
