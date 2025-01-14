@@ -41,8 +41,12 @@
                                             <th>#</th>
                                             <th>Product Name</th>
                                             <th>Image</th>
+                                            <th>Category</th>
+                                            <th>Brand</th>
+                                            <th>Price</th>
+                                            <th>Stock Quantity</th>
+                                            <th>Stock Status</th>
                                             <th>Status</th>
-                                            <th>Created By</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -332,8 +336,12 @@ $(document).ready(function() {
             { data: 'DT_RowIndex', name: 'DT_RowIndex' },
             { data: 'product_name', name: 'product_name' },
             { data: 'image', name: 'image', orderable: false, searchable: false },
+            { data: 'category.name', name: 'category.name' }, // Ensure this matches the structure
+            { data: 'brand.name', name: 'brand.name' },
+            { data: 'price', name: 'price' },
+            { data: 'stock_quantity', name: 'stock_quantity' },
+            { data: 'stock_status', name: 'stock_status' },
             { data: 'status', name: 'status' },
-            { data: 'created_by', name: 'created_by' },
             { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });

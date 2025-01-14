@@ -20,10 +20,10 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             if (auth()->user()->hasRole('Super Admin')) {
-                $data = Product::with('user', 'category', 'brand')->get();
+                $data = Product::with('category', 'brand')->get();
             } else {
-                $data = Product::with('user', 'category', 'brand')
-                    ->where('user_id', auth()->user()->id)
+                $data = Product::with('category', 'brand')
+                    ->where('user_id', operator: auth()->user()->id)
                     ->get();
             }
 
@@ -39,8 +39,23 @@ class ProductController extends Controller
                 ->addColumn('image', function ($data) {
                     return '<img src="' . asset($data->front_view_image) . '" width="70px"/>';
                 })
-                ->addColumn('created_by', function ($data) {
-                    return $data->user->name;
+                ->addColumn('product_name', function ($data) {
+                    return $data->product_name;
+                })
+                ->addColumn('category', function ($data) {
+                    return $data->category->name;
+                })
+                ->addColumn('brand', function ($data) {
+                    return $data->brand->name;
+                })
+                ->addColumn('price', function ($data) {
+                    return $data->price;
+                })
+                ->addColumn('stock_quantity', function ($data) {
+                    return $data->stock_quantity;
+                })
+                ->addColumn('stock_status', function ($data) {
+                    return $data->stock_status;
                 })
                 ->addColumn('status', function ($data) {
                     $badgeClass = $data->status == 'active' ? 'bg-primary' : 'bg-secondary';
