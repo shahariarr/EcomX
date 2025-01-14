@@ -66,15 +66,12 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fas fa-shopping-basket"></i> <span>Product</span></a>
                     <ul class="dropdown-menu">
-                        {{-- @can('create-categorie')
-                <li class="{{ Route::is('products.create')  ? 'active' : '' }}"><a class="nav-link" href="{{ route('products.create') }}">Product Create</a></li>
-                @endcan --}}
-                        @can('index-categorie')
+                        @can('index-product')
                             <li class="{{ Route::is('products.index') ? 'active' : '' }}"><a class="nav-link"
                                     href="{{ route('products.index') }}">Product List</a></li>
                         @endcan
                     </ul>
-                </li>
+                </li>   
             @endcan
 
             @can(['index-store'])

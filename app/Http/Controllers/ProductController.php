@@ -55,13 +55,25 @@ class ProductController extends Controller
                     return $data->stock_quantity;
                 })
                 ->addColumn('stock_status', function ($data) {
-                    return $data->stock_status;
+                    $badgeClass = '';
+                    switch ($data->stock_status) {
+                        case 'In Stock':
+                            $badgeClass = 'bg-success';
+                            break;
+                        case 'Out of Stock':
+                            $badgeClass = 'bg-danger';
+                            break;
+                        case 'Pre-order':
+                            $badgeClass = 'bg-warning';
+                            break;
+                    }
+                    return '<span class="badge ' . $badgeClass . '">' . $data->stock_status . '</span>';
                 })
                 ->addColumn('status', function ($data) {
                     $badgeClass = $data->status == 'active' ? 'bg-primary' : 'bg-secondary';
                     return '<span class="badge ' . $badgeClass . '">' . ucfirst($data->status) . '</span>';
                 })
-                ->rawColumns(['action', 'image', 'status'])
+                ->rawColumns(['action', 'image', 'status', 'stock_status'])
                 ->make(true);
         }
 
